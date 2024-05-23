@@ -1,0 +1,126 @@
+<html>
+    {% load static %}
+    <head>
+        <meta charset="utf-8">
+
+        <title>e BookNest | Select book</title>
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+        <link rel="stylesheet" href="{% static 'css/Select.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+        <style>
+            .img{
+                background-image: url("{% static 'image/People sitting at bookshelves and reading books in bookstore (2).jpg' %}");
+            }
+            .img .Welcome{
+                top: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar" id="navbar">
+            <div class="logoandsearch">
+                <a href="{% url 'home' user.id %}" class="LogoIcon" onclick="AdminHomeuser()">
+                    <img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
+                    </a>
+                    <a href="{% url 'home' user.id %}" class="Logo" onclick="AdminHomeuser()">eBookNest</a>
+            </div>
+            <div class="bottomline">
+                <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
+                <a href="../Adimn_Home_page/add.html" class="quick" title="add a new book">Add Book</a>
+                <a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book" style="
+                color: #ffffff;
+                text-decoration: underline;
+                font-size: 35px;
+                color: burlywood;
+                padding-bottom: 0px;
+                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+                text-underline-offset: 15.25px;">Edit Book</a>
+                <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+                
+                <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
+                <label for="Search" class="srch">Search:</label>
+                <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+            </div>
+        </nav>
+        <div class="img" >
+            <p class="Welcome">eBook Nest</p>
+        </div>
+        <div>
+            <div class ="mix">
+                {% for category in categories %}
+                    <div class="Books books{{category.id}}" id="Books">
+                    <div class="Rigth"></div>
+                    <a href="">{{category.Category_name}}</a>
+                    <div class="Left"></div>
+                    </div>
+                    <div class="see books{{category.id}}" >
+                    <a href="{% url 'Availableallbooks' user.id %}" id = "see">
+                        See All
+                    </a>
+                    </div>
+                    <div class="Categoreys" id="{{category.Category_name}}">
+                    {% for book in books %}
+                        {% if category == book.Category %}
+                        <div class="cards" id="book{{book.id}}">
+                            <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <img src="{{book.BookCover.url}}" alt="Avatar" style="width:300px;height:300px;">
+                                </div>
+                                <div class="flip-card-back">
+                                <h1>{{book.Book_name}}</h1>
+                                <p>{{book.description}}</p>
+                                <a href="bookdetails/{{book.id}}/{{user.id}}" class="see" onclick = "details(1)">
+                                    See More..
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                            <p>{{book.Book_name}}</p>
+                            <div class="Edit_Delete_buttns">
+                                <button class="buttns" onclick = "location.href='{% url 'EditBook' book.id %}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {%endfor%}
+                    </div>
+                {% endfor %}
+                <div><br><br><br></div>
+            </div>
+            <div class="Options">
+                <input type="reset" value="Reset" class="Reset">
+                <button type="submit" class="butt_Go_back"><a href="{% url 'home' user.id %}" class="Go_back">Go back</a></button>
+            </div>
+            <br><br>
+            
+        </div>
+        <script>
+            function details(number){
+                fetch(`/toggleusertype/${number}/`,{
+                    method: "PATCH",
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("done")
+                })
+            }
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+    </body>
+</html

@@ -1,0 +1,364 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#Admin_page{
+    display: none;
+}
+#user_page{
+    display: none;
+}
+.Edit_Delete_buttns{
+    display: flex;
+}
+.ADD,.SELECT,.DELETE{
+    transition: background-color 0.3s;
+    border: 0;
+    border-radius: 15px;
+    background-color: rgb(8 88 66);
+    padding: 11px;
+    cursor: pointer;
+    margin: 0px 20px;
+}
+.ADD:hover,.SELECT:hover,.DELETE:hover{
+    background-color: rgb(220 247 234);
+}
+.Options{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: 0.3s;
+}
+.Options:hover{
+    color:rgb(8 88 66);
+}
+.middle{
+    margin: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.img{
+    background-image: url(../images/People\ sitting\ at\ bookshelves\ and\ reading\ books\ in\ bookstore\ \(2\).jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 74%;
+}
+.hed{
+    background-color: rgb(8 88 66);
+    height: 18%;
+    padding-bottom: 10px;
+}
+.img .Welcome{
+    display: flex;
+    position: absolute;
+    top: 45%;
+    left: 60%;
+}
+.img {
+    font-size: 50px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(8 88 66);
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    text-shadow:1px 2px 4px #ffffff;
+}
+.mix{
+    width: 100%;
+    height: 100%;
+    height: max-content;
+    display: flex; 
+    flex-direction: column;
+    padding-top: 20px;
+}
+.book{
+    float: left;
+    padding: 15px;
+    
+}
+
+.availablebooks,.Categoreys{
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 54px;
+}
+.bookborrow{
+    float: left;
+    padding: 20px;
+}
+
+.borrowBooks{
+    margin-top: 20px;
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 26px;
+    margin-bottom:40px;
+}
+.buttonAvailable,.Books , .buttonBorrow{
+    display: flex;
+    justify-content: center;
+}
+.buttn{
+    width: 100%;
+    height: 50px;
+    background-color: #d3bb9c;
+    cursor: pointer;
+    border-radius: 4px ;
+    border: 1px solid rgb(136, 114, 87);
+    box-shadow: 2px 2px #eee6da;
+}
+.buttn:hover{
+    background-color: #94764e;
+    transition: background-color 0.4s ease;
+}
+.book3 a , .book3borrow a {
+    white-space: normal; 
+    display: inline-block; 
+    max-width: 160px; 
+}
+.buttn a{
+    color: rgb(65, 50, 33);
+    font-weight: bold;
+    font-style: italic;
+    font-size: medium;
+    text-decoration: none;
+}
+.availablebooks,.Categoreys , .borrowBooks{
+    display: flex;
+    flex-direction: row;
+    
+    white-space: nowrap;
+}
+.availablebooks,.Categoreys ,.borrowBooks {
+    height: max-content;
+    
+}
+.availablebooks .book,.Categoreys .book , .bookborrow{
+    border-radius: 9px;
+    height: 170px;
+    width: 120px;
+    margin-bottom: 20px;
+    white-space: normal;
+    }
+.availablebooks a ,.Categoreys a, .borrowBooks a {
+    text-decoration: none;
+    color: rgb(49, 44, 44);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}
+.availablebooks a:hover,.Categoreys a:hover , .borrowBooks a:hover{
+    text-decoration: none;
+    color: rgb(255 169 0);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}
+.borrowBooks .reback {
+    font-weight: 550;
+    font-style: oblique;
+    background-color: #f9f9f9;
+    color: rgb(0 0 0);
+    border-radius: 4px;
+    border: #fdfdfd;
+    border-bottom-style: unset;
+    width: 121px;
+    height: 28px;
+    cursor: pointer;
+    
+}
+.borrowBooks .reback:hover{
+    background-color: rgb(150, 119, 73);
+
+}
+.availablebooks .book:hover, .bookborrow:hover{
+    transform: scale(1.05);
+    background-color: rgb(242, 237, 232);
+    box-shadow: 2px 2px 4px rgb(242, 237, 232);
+    border-radius: 6px;
+}
+.Rigth,.Left{
+    width: 30%;
+    border-bottom: 1px solid rgb(8 88 66);
+    margin: 0px 10px;
+}
+.Books,.buttonAvailable,.buttonBorrow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#Borrow a ,#Available a,#Books a{
+    text-decoration: none;
+    color: rgb(8 88 66);
+    text-shadow: 1px 1px 3px rgb(255, 255, 255);
+    font-size: x-large;
+    font-weight: 700;
+    cursor: default;
+    font-family: sans-serif;
+    
+}
+.buttonBorrow{
+    margin-top: 112px;
+}
+.mix .see a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: fit-content;
+    position: absolute;
+    left: 48.5%;
+    font-size: small;
+    
+}
+.mix .see a:hover{
+    text-decoration: underline;
+    transform: scale(0.95);
+    color: rgb(255 169 0);
+}
+.book , .bookborrow{
+    margin-left:40px ;
+    margin-right:40px ;
+}
+.card,.cards {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    border-radius: 3px;
+    white-space: normal;
+    width: 352px;
+    height: 432px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.cards{
+    height: 437px;
+}
+
+.buttns:has(i){
+    margin-left: 10px;
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color:rgb(8 88 66);
+    
+    cursor: pointer;
+    width: 18%;
+    font-size: 18px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: large;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.card button,.buttns:not(:has(i)) {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color:rgb(8 88 66);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+    font-size: large;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.card button:not(:has(i)):hover ,.buttns:hover{
+    
+    background-color: rgb(220 247 234);
+    font-size: large;
+    color: rgb(8 88 66);
+border-radius: 18px;
+}
+.card p,.cards p{
+margin-bottom: 15px;
+margin-top: 15px;
+font-weight: 800;
+font-family: sans-serif;
+}
+.card a img,.cards a img{
+height: 291px;
+width: 91%;
+margin-top: 10px;
+}
+.card a img:hover .card a img:hover{
+transform: scale(1.03);
+}
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    margin-right: 26px;
+    margin-bottom: 135px;
+    margin-left: 26px;
+    margin-top: 14px;
+}
+
+
+.flip-card-inner {
+position: relative;
+width: 100%;
+height: 100%;
+text-align: center;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+}
+
+
+.flip-card:hover .flip-card-inner {
+transform: rotateY(180deg);
+}
+
+
+.flip-card-front, .flip-card-back {
+position: absolute;
+width: 100%;
+height: 150%;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+
+
+.flip-card-front {
+background-color: #bbb;
+color: black;
+}
+
+
+.flip-card-back {
+background-color: rgb(220 247 234);
+color: #085842;
+transform: rotateY(180deg);
+}
+.flip-card-back p{
+white-space: normal;
+}
+#Borrow .buttonBorrow{
+margin: 20%;
+}

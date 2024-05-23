@@ -1,0 +1,197 @@
+.availablebooks .book1 ,.book2 , .book3 ,.borrowBooks{
+    display: inline-grid;
+    width: 186px;
+    height: 232px;
+    padding: 10px;
+    float: left;
+    justify-content: space-evenly;
+}
+.book{
+    width: 200px;
+    height: 230px;
+    margin: 9px 5px;
+    padding-top: 17px;
+    padding-bottom: 5px;
+    padding-left: 16px;
+    padding-right: 9px;
+}
+.book:hover{
+    transform: scale(1.05);
+    background-color: rgb(242, 237, 232);
+    box-shadow: 2px 2px 4px rgb(242, 237, 232);
+    border-radius: 6px;
+}
+.availablebooks ,.borrowBooks{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+}
+/* button{
+    border: 1px solid #d4cec7;
+    width: 100%;
+    color: black;
+    background-color: #ffffff;
+    height: 25px;
+    font-family: sans-serif;
+    border-radius: 10px;
+}
+button:hover{
+    background-color: rgb(150, 119, 73);
+} */
+.availablebooks a,.borrowBooks a{
+    text-decoration: none;
+    color: rgb(49, 44, 44);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}
+.availablebooks ,.borrowBooks{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    flex-flow: wrap;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 6%;
+}
+.card,.cards {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* max-width: 300px; */
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    border-radius: 3px;
+    white-space: normal;
+    width: 352px;
+    height: 432px;
+    white-space: nowrap; /* Ensures text doesn't wrap */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 7%;
+}
+.cards{
+    height: 437px;
+}
+
+.card button,.buttns:not(:has(i)) {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color:rgb(8 88 66);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+    font-size: large;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.card button:not(:has(i)):hover ,.buttns:hover{
+    /* opacity: 0.7; */
+    background-color: rgb(220 247 234);
+    font-size: large;
+    color: rgb(8 88 66);
+border-radius: 18px;
+}
+.card p,.cards p{
+margin-bottom: 15px;
+margin-top: 15px;
+font-weight: 800;
+font-family: sans-serif;
+}
+.card a img,.cards a img{
+height: 291px;
+width: 91%;
+margin-top: 10px;
+}
+.card a img:hover .card a img:hover{
+transform: scale(1.03);
+}
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    margin-right: 26px;
+    margin-bottom: 135px;
+    margin-left: 26px;
+    margin-top: 14px;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+position: relative;
+width: 100%;
+height: 100%;
+text-align: center;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+position: absolute;
+width: 100%;
+height: 150%;
+-webkit-backface-visibility: hidden; /* Safari */
+backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+background-color: #bbb;
+color: black;
+}
+
+/* Style the back side */
+.flip-card-back {
+background-color: rgb(220 247 234);
+color: #085842;
+transform: rotateY(180deg);
+}
+.flip-card-back p{
+white-space: normal;
+}
+#Borrow .buttonBorrow{
+margin: 20%;
+}
+.availablebooks a:hover,.borrowBooks a:hover{
+    text-decoration: none;
+    color: rgb(255 169 0);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}
+/*admin part*/
+.Edit_Delete_buttns{
+    display: flex;
+}
+.buttns:has(i){
+    margin-left: 10px;
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color:rgb(8 88 66);
+    /* text-align: center; */
+    cursor: pointer;
+    width: 18%;
+    font-size: 18px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: large;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}

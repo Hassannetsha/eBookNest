@@ -1,0 +1,124 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../images/People\ sitting\ at\ bookshelves\ and\ reading\ books\ in\ bookstore\ \(1\).jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: scroll;
+    position: relative;
+
+}
+
+.form {
+    position: absolute;
+    width: 90%;
+    display: block;
+    justify-content: end;
+    max-width: 450px;
+    top: 50%;
+    left: 74%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px 60px 70px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+
+}
+
+.form h1 {
+    font-size: 60px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 35px;
+    color: rgb(8 88 66);
+    position: relative;
+}
+
+.form h2 {
+    font-size: 25px;
+    margin-bottom: 7px;
+    position: relative;
+    color: #7ac34d;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.input {
+    background: #eaeaea;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+    background-color: #b7efd4;
+    border-radius: 40px;
+}
+
+input {
+    margin-left: 10px;
+    width: 95%;
+    border: 0;
+    outline: 2;
+    padding: 18px 15px;
+    border-radius: 40px;
+    background-color: #b9efd5;
+    color: black;
+    font-weight: 700;
+    font-family: cursive;
+}
+
+.input i {
+    margin-left: 20px;
+    margin-right: 5px;
+    color: rgb(8 88 66);
+
+}
+
+.wrap button {
+    font-size: large;
+    flex-basis: 48%;
+    text-size-adjust: 30;
+    background-color: rgb(8 88 66);
+    color: white;
+    height: 45px;
+    width: 85px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    box-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+
+}
+
+.wrap button:hover {
+    color: rgb(220 247 234);
+}
+
+form p {
+    color: #8b4d28;
+}
+
+form p a {
+    color: rgb(122 195 77);
+    font-style: italic;
+    font-family: cursive;
+    font-size: small;
+    font-weight: 900;
+}
+
+img {
+    max-width: 50%;
+    height: auto;
+}
+
+.invalidinput {
+    color: red;
+    font-size: 13px;
+}

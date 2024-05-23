@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+<meta charset="UTF-8">
+<title>e BookNest | Book</title>
+<link rel="icon" type="image/x-icon"  href="../images/favicon.ico">
+<link rel="stylesheet" href="{% static 'css/bookdetails.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+<style>
+  .button .heart .fa {
+    color: rgb(8 88 66);
+}
+</style>
+
+</head>
+<body>
+  <div class="Form">
+    <nav class="navbar" id="navbar">
+      {% if not user.isUser %}
+        <div class="logoandsearch">
+          <a href="../home_page/home.html" class="LogoIcon" onclick="AdminHomeuser()">
+          <img src="{% static 'image/logopng-removebg.png'%}" alt="can't display image">
+          </a>
+          <a href="../home_page/home.html" class="Logo" onclick="AdminHomeuser()">eBookNest</a>
+        </div>
+        <div class="bottomline">
+            <a href="../home_page/home.html" class="quick" title="Admin Homepage"  onclick="AdminHomeuser()">Home</a>
+            <a href="../Adimn_Home_page/add.html" class="quick" title="add a new book">Add Book</a>
+            <a href="../Adimn_Home_page/Select.html" class="quick" title="edit an existing book">Edit Book</a>
+            <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+            
+            <a href="../html/main-sign-page.html" class="quick" title="log out">Sign Out</a>
+            <label for="Search" class="srch">Search:</label>
+            <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        </div>
+        {% else %}
+          <div class="logoandsearch">
+            <a href="../home_page/home.html" class="LogoIcon" onclick="UserHomeuser()">
+            <img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
+            </a>
+            <a href="../home_page/home.html" class="Logo" onclick="UserHomeuser()">eBookNest</a>
+          </div>
+          <div class="bottomline">
+              <a href="{% url 'home' user.id %}" class="quick" title="User Homepage"  onclick="UserHomeuser()">Home</a>
+                  
+              <a href="{% url 'Availableallbooks' user.id %}" class="quick" title="Available books">Available books</a>
+              <a href="{% url 'Borrowedbooks' user.id %}" class="quick" title="Borrow books">Borrow books</a>
+      
+              
+      
+              <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
+              <label for="Search" class="srch">Search:</label>
+              <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+          </div>
+      {% endif %}
+    </nav>
+  <hr>
+  </div>
+  <div class="content">
+  <div class="image" id="image">
+    <img src="{{book.BookCover.url}}" alt="" height="200px" width="200px">
+  </div>
+    <div class="book" id="book">
+      <p>Book Name:</p> {{book.Book_name}}
+        <br><br>
+        <p id = "bookID">Book Id:</p> {{book.id}}
+        <br><br>
+        <p>Author:</p> {{book.Book_author}}
+        <br><br>
+        <p>Category:</p> {{category.Category_name}}
+        <br><br>
+        <p>Description:</p> {{book.description}}
+        <br><br>
+    </div>
+    </div>
+    <div class="button" id="button">
+      {% if not user.isUser %}
+        <button class="b" onclick = "Go_back({{user.id}})">Back</button>
+        <button class="b" onclick = "location.href='{% url 'EditBook' book.id %}'">Edit</button>
+        <div class="heart" name="x" onclick = "deleteBook({{book.id}},{{user.id}})"><i onclick = "deleteBook({{book.id}},{{user.id}})" class="fa fa-trash-o" name="x" style="font-size:40px; padding-left: 21px;" onclick = "deletebook({{book.id}})"></i></div>
+        {% else %}
+        {% if book.Available %}
+          <button class="b" onclick = "Go_back({{user.id}})">Back</button>
+          <button class="b" onclick = "toggleAvailability({{book.id}},{{user.id}})">Borrow</button>
+          <div class="heart" name="x"><i class="fa fa-heart" name="x"id = "fa"  onclick = "changeColor()"></i></div>
+          {% else %}
+            <button class="b" onclick = "Go_back({{user.id}})">Back</button>
+            <button class="b" onclick = "toggleAvailability({{book.id}},{{user.id}})">Return</button>
+            <div class="heart" name="x"><i class="fa fa-heart" name="x"id = "fa"  onclick = "changeColor()"></i></div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <script>
+      function Go_back(userId){
+        location.href = `http://127.0.0.1:8000/home/${userId}`
+      }
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+      }
+      function toggleAvailability(bookId,userID){
+        fetch(`/Convert/${bookId}`, {
+          method: 'PATCH',
+          headers: {
+              'X-CSRFToken': getCookie('csrftoken'),
+              'Content-Type': 'application/json' // Ensure the content type is set if sending JSON data
+          },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+          location.href = `http://127.0.0.1:8000/home/${userID}`
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            alert('Failed to update availability');
+        });
+
+      }
+      function deleteBook(bookId,userID) {
+        fetch(`/delete-book/${bookId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+          location.href = `http://127.0.0.1:8000/home/${userID}`
+        });
+      }
+    </script>
+</body>
+</html>

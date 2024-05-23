@@ -1,0 +1,375 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* for image*/
+.img{
+    background-image: url(../images/People\ sitting\ at\ bookshelves\ and\ reading\ books\ in\ bookstore\ \(2\).jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 74%;
+    background-repeat: no-repeat;
+    font-size: 50px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(8 88 66);
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    text-shadow:1px 2px 4px #ffffff;
+}
+/* to center the word welecome*/
+.img .Welcome{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 60.75%;
+}
+.Books{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#Books a{
+    text-decoration: none;
+    color: rgb(8 88 66);
+    text-shadow: 1px 1px 3px rgb(255, 255, 255);
+    font-size: x-large;
+    font-weight: 700;
+    cursor: default;
+    font-family: sans-serif;   
+}
+.Rigth,.Left{
+    width: 30%;
+    border-bottom: 1px solid rgb(8 88 66);
+    margin: 0px 10px;
+}
+/* Radio button*/
+.Circle{
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 20px;
+    height: 20px;
+}
+/* Spacing between radio buttons*/
+.Radio{
+    font-size: large;
+    font-weight: bold;
+    margin-top: 28px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+/* .Radio:hover{
+    background-color: #ebcba494;
+    border-radius: 20px;
+    border: 1.7px solid #412808;
+    padding: 3px;
+} */
+/* button Select*/
+.buttn_Search{
+    border: none;
+    outline: 0;
+    padding: 8px;
+    color: white;
+    background-color:rgb(8 88 66);
+    text-align: center;
+    /* cursor: pointer; */
+    font-size: 18px;
+    border-radius: 18px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.buttn_Search:hover{
+    background-color: rgb(139, 182, 159);
+    color: rgb(8 88 66);
+}
+/* input feild */
+.field::placeholder{
+    color: rgb(8 88 66);
+    font-size: medium;
+    font-family:sans-serif;
+    text-shadow: none;
+    letter-spacing: 0px;
+}
+.field{
+    color: rgb(8 88 66);
+    font-size: medium;
+    font-weight: bold;
+    font-family:sans-serif;
+    letter-spacing: 1px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    width: 300px;
+}
+.field:focus{
+    outline: none;
+}
+/* Choose label*/
+.Choose{
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(8 88 66);
+    font-family: sans-serif;
+    position: absolute;
+    bottom: 147%;
+    left: 10.5%;
+}
+/* to make Select and input field in the center*/
+.Select{
+    display: flex;
+    justify-content: center;
+}
+.Select input[type = "text"]{
+    padding-left: 10px;    
+}
+/* Word select laabel */
+.Search{
+    padding-top: 10px;
+    font-size: large;
+    font-weight:500;
+}
+.Search, .field, .buttn_Search{
+    margin-left: 20px;
+    margin-bottom: -8px;
+}
+.hed .img {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    text-shadow:2px 3px #94764e;
+}
+.Books{
+    display: flex;
+    justify-content: center;
+}
+.mix{
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    height: max-content;
+    /* overflow: auto; */
+    display: flex; 
+    flex-direction: column;
+    padding-top: 20px;
+}
+.Rigth{
+    width: 40%;
+    position: absolute;
+    right: 30px;
+}
+
+.Left{
+    
+    width: 40%;
+    position: absolute;
+    left: 30px;
+}
+.Categoreys{
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 54px;
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    /* overflow-x: auto; */
+    white-space: nowrap;
+}
+.Categoreys .book{
+    border-radius: 9px;
+    height: 170px;
+    width: 120px;
+    margin-bottom: 20px;
+    white-space: normal;
+}
+.book{
+    float: left;
+    padding: 15px;
+    
+}
+.book{
+    margin-left:40px ;
+    margin-right:40px ;
+}
+.Options{
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    margin-bottom: 39px;
+}
+.Go_back{
+    text-decoration: none;
+}
+.Reset ,.Go_back{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: 0.3s;
+}
+.butt_Go_back{
+    padding-bottom: 8px;
+}
+
+.Reset, .butt_Go_back{
+    transition: background-color 0.3s;
+    border: 0;
+    border-radius: 10px;
+    background-color: rgb(8 88 66);
+    padding-top: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: 0px 20px;
+}
+.Reset:hover,.butt_Go_back:hover{
+    background-color: rgb(220 247 234);
+    color:rgb(8 88 66);
+}
+.Go_back:hover{
+    color:rgb(8 88 66);
+}
+/* cards for make the books view in such a card way*/
+.cards{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* max-width: 300px; */
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    border-radius: 3px;
+    white-space: normal;
+    width: 352px;
+    height: 437px;
+    white-space: nowrap; /* Ensures text doesn't wrap */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cards p{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+.cards a img{
+    height: 291px;
+    width: 91%;
+    margin-top: 10px;
+}
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    margin-right: 26px;
+    margin-bottom: 135px;
+    margin-left: 26px;
+    margin-top: 14px;
+}
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 150%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}    
+/* Style the back side */
+.flip-card-back {
+    background-color: rgb(220 247 234);
+    color: #085842;
+    transform: rotateY(180deg);
+}
+.flip-card-back p{
+    white-space: normal;
+}
+/*button select */
+.buttns{
+    border: none;
+    outline: 0;
+    padding: 4%;
+    color: white;
+    background-color:rgb(8 88 66);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 7px;
+    margin-bottom: -15px;
+    font-size: large;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.buttns:hover{
+    background-color: rgb(220 247 234);
+    color: rgb(8 88 66);
+    border-radius: 18px;
+}
+.moving_div{
+    position: absolute;
+    left: 57.5%;
+    bottom: 28.5%;
+    width: 465px;
+    height: 126px;
+}
+.mix .see a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: fit-content;
+    position: absolute;
+    left: 48.5%;
+    font-size: small;
+    /* margin-top: 36px; */
+}
+.mix .see a:hover{
+    text-decoration: underline;
+    transform: scale(0.95);
+    color: rgb(255 169 0);
+}
+.Categoreys a{
+    text-decoration: none;
+    color: rgb(49, 44, 44);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}
+.Categoreys a:hover{
+    text-decoration: none;
+    color: rgb(255 169 0);
+    font-style: italic;
+    font-weight: 550;
+    font-size: medium;
+}

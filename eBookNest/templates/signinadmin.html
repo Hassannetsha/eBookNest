@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <title>Admin SignIn</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'image/logopng-removebg.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/singin.css' %}">
+    <script src="https://kit.fontawesome.com/dc97e19073.js" crossorigin="anonymous"></script>
+    <style>
+        .container {
+        width: 100%;
+        height: 100vh;
+        background-image: url("{% static 'image/People sitting at bookshelves and reading books in bookstore (1).jpg' %}");
+        background-position: center;
+        background-size: cover;
+        background-attachment: scroll;
+        position: relative;
+    
+    }
+        </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="body">
+            <div class="form">
+                <img src="{% static 'image/logopng-removebg.png' %}">
+                <h1>eBook nest</h1>
+                <h2>Admin Sign In</h2>
+                <div class="singup">
+                    <form method="post" id="loginForm">
+                        {% csrf_token %}
+                        <div class="input">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <input id="email" type="text" placeholder="Enter your Email" name="Email" required>
+                        </div>
+                        <div class="input">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="pass" type="password" placeholder="Enter your Password" name="Email" required>
+                        </div>
+                        <p class="invalidinput"></p>
+                        <div class="wrap">
+                            <button id="btn" type="submit" >
+                                Sign in
+                            </button>
+                        </div>
+                        <br>
+                        <p>You do not have an account?<a href="http://127.0.0.1:8000/SignUpAdmin/">Create admin account.</a></p>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var pass = document.getElementById('pass')
+        var email = document.getElementById('email')
+        var btn = document.getElementById('btn')
+        var para = document.getElementsByClassName('invalidinput')[0]
+        var userId
+        fetch('/loaduser/')
+                .then(response => response.json())
+                .then(data => {
+                    const users = JSON.parse(data); // Parse the JSON string to a JavaScript object
+                    console.log(users);
+                    load(users);
+                })
+                .catch(error => console.error('Error fetching books:', error));
+        function load(users)
+        {   
+            btn.addEventListener('click', (event) => { 
+                let found = false;
+                for(let i = 0; i < users.length; i++) {
+                    let UEmail = users[i].fields.email;
+                    let Upass = users[i].fields.password;
+                    if(UEmail == email.value && Upass == pass.value && !users[i].fields.isUser) {
+                        found = true;
+                        userId = users[i].pk;
+                        console.log(userId)
+                        break; // Optional: break the loop if a match is found
+                    }
+                }
+                if(found){
+                    para.innerHTML=``
+                    document.getElementById('loginForm').action = `/home/${userId}`;
+                }
+                else{
+                    para.innerHTML=`*Invalid email or password`;
+                    event.preventDefault();
+                }
+            }
+                )
+        }
+        
+    </script>
+
+</body>
+
+</html>
+
+</html>

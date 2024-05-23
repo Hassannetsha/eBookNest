@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+{% load static %}
+<title>e BookNest | Book</title>
+<link rel="icon" type="image/x-icon"  href="{% static 'image/logopng-removebg.ico' %}">
+<link rel="stylesheet" href="{% static 'css/available.css' %}">
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
+</head>
+<body>
+  <div class="Form">
+    <nav class="navbar" id="navbar">
+      <div class="logoandsearch">
+        <a href="../home_page/home.html" class="LogoIcon" onclick="UserHomeuser()">
+          <img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
+        </a>
+        <a href="../home_page/home.html" class="Logo" onclick="UserHomeuser()">eBookNest</a>
+    </div>
+    <div class="bottomline">
+        <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage"  onclick="UserHomeuser()">Home</a>
+            
+        <a href="{% url 'Availableallbooks' user.id %}" class="quick" title="Available books">Available books</a>
+        <a href="{% url 'Borrowedbooks' user.id %}" class="quick"style="
+        color: #ffffff;
+        text-decoration: underline;
+        font-size: 35px;
+        color: burlywood;
+        padding-bottom: 0px;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        text-underline-offset: 15.25px;" title="Borrow books">Borrow books</a>
+
+        
+
+        <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
+        <label for="Search" class="srch">Search:</label>
+        <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+    </div>
+      
+    </nav>
+    <hr>
+    </div>
+    <div class="availablebooks" id="availablebooks">
+      {% for book in books %}
+      {% if not book.Available %}
+      <div class="card" id="book{{ book.id }}">
+          <div class="flip-card">
+              <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                      <img src="{{ book.BookCover.url }}" alt="Book Cover" style="width:300px;height:300px;">
+                  </div>
+                  <div class="flip-card-back">
+                      <h1>{{ book.Book_author }}</h1>
+                      <p>{{ book.description }}</p>
+                      <a href="{% url 'bookdetails' book.id  user.id %}" class="see" onclick = "details(1)">
+                        See More..
+                    </a>
+                  </div>
+              </div>
+          </div>
+          <p>{{ book.Book_name }}</p>
+          <button onclick = "toggleAvailability({{book.id}})">Return</button>
+      </div>
+    {% endif %}
+      {% endfor %}
+    </div>
+      <br>
+    <script>
+    
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+      }
+      function toggleAvailability(bookId){
+        fetch(`/Convert/${bookId}`, {
+          method: 'PATCH',
+          headers: {
+              'X-CSRFToken': getCookie('csrftoken'),
+              'Content-Type': 'application/json'
+          },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+          alert("Done became available")
+        })
+        .catch(error => {
+            //console.alert('There has been a problem with your fetch operation:');
+            alert('Failed to update availability');
+        });
+
+      }
+
+    </script>
+</body>
+</html>

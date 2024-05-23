@@ -1,0 +1,109 @@
+{% load static %}
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'image/logopng-removebg.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/styleHome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<nav class="navbar" id="navbaruser">
+    <div class="logoandsearch">
+      <a href="../home_page/home.html" class="LogoIcon" onclick="UserHomeuser()">
+      <img src="../images/logopng-removebg.png" alt="can't display image">
+      </a>
+      <a href="../home_page/home.html" class="Logo" onclick="UserHomeuser()">eBookNest</a>
+    </div>
+    <div class="bottomline">
+        <a href="../home_page/home.html" class="quick" title="Admin Homepage" style="
+            color: #ffffff;
+            text-decoration: underline;
+            font-size: 35px;
+            color: burlywood;
+            padding-bottom: 0px;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            text-underline-offset: 15.25px;" onclick="UserHomeuser()">Home</a>
+            
+        <a href="../User_Home_page/availavbleBooks.html" class="quick" title="Available books">Available books</a>
+        <a href="../User_Home_page/availavbleBooks.html" class="quick" title="Borrow books">Borrow books</a>
+        <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
+        <label for="Search" class="srch">Search:</label>
+        <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+    </div>
+  </nav>
+    <div class="img" id="img">
+      <p class="Welcome" id="Welcome">Welcome to eBooknest</p>
+    </div>
+  <div class="mix">
+    <div class="buttonAvailable" id="Available" >
+      <div class="Rigth"></div>
+      <a href="">Available Books</a>
+      <div class="Left"></div>
+    </div>
+    <div class="see" id="hide1">
+      <a href="../User_Home_page/availavbleBooks.html">
+        See All
+      </a>
+    </div>
+    <br>
+<div class="availablebooks" id="availablebooks">
+    
+    {% block content %}
+        {% for book in books %}
+            {% if book.Available %}
+                <div class="card" id="book{{ book.Book_Id }}">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="{{ book.BookCover.url }}" alt="Book Cover" style="width:300px;height:300px;">
+                            </div>
+                            <div class="flip-card-back">
+                                <h1>{{ book.Book_author }}</h1>
+                                <p>{{ book.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p>{{ book.Book_name }}</p>
+                    <button onclick="DeleteBorrowBook(this)">Return</button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    
+</div>
+
+<br>
+          <br>
+          <!-- <hr> -->
+          <div class="buttonBorrow" id="Borrow" >
+            <div class="Rigth"></div>
+            <a href="">Borrowed Books</a>
+            <div class="Left"></div>
+          </div>
+          <div class="see" id="hide">
+            <a href="../User_Home_page/borrowedBooks.html">
+              See All
+            </a>
+          </div>
+          <br>
+
+<div class="borrowBooks" id="borrowBooks">
+            
+    {% for book in books %}
+        {% if not book.Available %}
+            <div class="card" id="book{{ book.Book_Id }}">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="{{ book.BookCover.url }}" alt="Book Cover" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>{{ book.Book_author }}</h1>
+                            <p>{{ book.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <p>{{ book.Book_name }}</p>
+                <button onclick="DeleteBorrowBook(this)">Return</button>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
+</div>

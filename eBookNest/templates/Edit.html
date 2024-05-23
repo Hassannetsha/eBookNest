@@ -1,0 +1,175 @@
+<html>
+
+<head>
+    {%load static%}
+    <meta charset="utf-8">
+    <title>e BookNest | Edit books</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'image/logopng-removebg.ico'%}">
+    <link rel="stylesheet" href="{% static 'css/Styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+
+</head>
+
+<body>
+    <div>
+        <nav class="navbar">
+            <div class="logoandsearch">
+                <a href="{% static 'home' {{user.id}}%}" class="LogoIcon">
+                    <img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
+                </a>
+                <a href="../home_page/home.html" class="Logo">eBookNest</a>
+
+            </div>
+
+            <div class="bottomline">
+                <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
+                <a href="add.html" class="quick" title="add a new book">Add Book</a>
+
+                <a href="Edit.html" class="quick" title="edit an existing book" style="
+                color: #ffffff;
+text-decoration: underline;
+font-size: 38px;
+color: burlywood;
+padding-bottom: 0px;
+text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+text-underline-offset: 12.5px;">Edit Book</a>
+
+                <a href="delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+
+                <a href="AboutUs.html" class="quick" title="Who are we?">About Us</a>
+
+
+                <a href="../LogIn/main-sign-page.html" class="quick" title="log out">Sign Out</a>
+                <label for="Search" class="srch">Search:</label>
+                <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+            </div>
+
+        </nav>
+        <hr style="border: 1px solid burlywood;border-radius: 5px;">
+    </div>
+
+    <div class="edit">
+        <form id="formedit" target="_blank">
+            <div class="input">
+                <label for="BookName"> Edit book name:</label>
+                <input type="text" id="BookName" placeholder="Book's Name">
+            </div>
+
+
+
+            <br>
+            <br>
+            <div class="input">
+                <label for="author"> Edit book's author:</label>
+                <input type="text" id="author" placeholder="Book's author">
+            </div>
+
+            <br>
+            <br>
+            <div class="input">
+                <label for="BookCategory"> Edit book's category:</label>
+                <input type="text" id="BookCategory" placeholder="Book's category">
+            </div>
+
+            <br>
+            <br>
+
+            <div class="input">
+                <label for="BookPages"> Edit book's number of pages:</label>
+                <input type="number" id="BookPages" placeholder="Book's number of pages">
+            </div>
+
+            <br>
+            <br>
+            <div class="input">
+                <label for="BookDescription"> Edit book's description:</label>
+                <textarea name="comment--" id="BookDescription" cols="30" rows="10"
+                    placeholder="write book description"></textarea>
+            </div>
+
+            <br><br>
+            <div class="input">
+                <label for="BookCover">Put book's cover image: </label>
+                <input required type="file" id="BookCover" value="C:\\fakepath\\{{book.BookCover}}" accept=".img, .png, .jpg, .jpeg, .webp">
+            </div>
+
+            <br>
+            <br>
+            <p class="invalidinput"></p>
+            <div class="box">
+                <div class="wrap">
+                    <button type="submit" id="editbtn">
+                        Submit
+                    </button>
+                </div>
+                <div class="wrap">
+                    <button type="submit">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <script>
+
+        document.getElementById("formedit").style.top = `55%`
+        
+        let editbtn = document.getElementById("editbtn")
+        let para = document.getElementsByClassName("invalidinput")[0]
+        document.getElementById(`BookName`).value = "{{book.Book_name}}"
+        document.getElementById(`author`).value = "{{book.Book_author}}"
+        document.getElementById(`BookCategory`).value = "{{category.Category_name}}"
+        document.getElementById(`BookPages`).value = "{{book.no_page}}"
+        document.getElementById(`BookDescription`).value = "{{book.Book_description}}"
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        editbtn.addEventListener('click', (event) => {
+            const BOOK = {
+                'ID': "{{book.id}}",
+                'Title': document.getElementById(`BookName`).value,
+                'Author': document.getElementById(`author`).value,
+                'Category': document.getElementById(`BookCategory`).value,
+                'Pages': document.getElementById(`BookPages`).value,
+                'Description': document.getElementById(`BookDescription`).value,
+                'Cover': document.getElementById(`BookCover`).value.replace(`C:\\fakepath\\`, "")
+            }
+            const dataa = new FormData();
+            dataa.append('json', JSON.stringify(BOOK))
+            dataa.append('image', document.getElementById(`BookCover`).files[0])
+            fetch(`/modifyBook/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: dataa
+            }).then(res => res.json())
+                .then(JS => {
+                    if (JS.status == `failed`) {
+                        para.innerText = JS.message
+                        event.preventDefault()
+                    }
+                    else {
+                        window.href.location = `http://127.0.0.1:8000/home/{{user.id}}`
+                        para.innerText = ''
+                    }
+                })
+        })
+        // localStorage.clear();
+    </script>
+</body>
+
+</html

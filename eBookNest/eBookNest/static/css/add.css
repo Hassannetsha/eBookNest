@@ -1,0 +1,202 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.add {   
+    width: 100%;
+   height: 100vh;
+   background-position: center;
+   background-size: cover;
+   background-attachment: scroll;
+   position: relative;
+   background-image: url(../images/add.jpg);
+   
+}
+.add form{
+    position: absolute;
+    width: 87%;
+    display: block;
+    justify-content: end;
+    max-width: 502px;
+    top: 40%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px 60px 70px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    margin-top: 7%;
+}
+.delete {   
+    width: 100%;
+   height: 100vh;
+   background-position: center;
+   background-size: cover;
+   background-attachment: scroll;
+   position: relative;
+   background-image: url(../images/delete.png);
+   
+}
+.delete form{
+    position: absolute;
+    width: 87%;
+    display: block;
+    justify-content: end;
+    max-width: 502px;
+    top: 40%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px 60px 70px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+.edit {   
+    width: 100%;
+   height: 100vh;
+   background-position: center;
+   background-size: cover;
+   background-attachment: scroll;
+   position: relative;
+   background-image: url(../images/edit.png);
+   
+}
+.edit form{
+    position: absolute;
+    width: 87%;
+    display: block;
+    justify-content: end;
+    max-width: 502px;
+    top: 40%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px 60px 70px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+.form h1 {
+    margin-bottom: 35px;
+    position: relative;
+    font-size: 60px;
+    color: burlywood;
+     font-weight: bolder;
+     font-family: sans-serif;
+     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+form h2 {
+    font-size: 25px;
+    margin-bottom: 7px;
+    position: relative;
+    color: #24503f;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+.input{
+    background: #eaeaea;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+    background-color: #b7efd4;
+    border-radius: 40px;
+}
+input{
+    margin-left: 10px;
+    width: 95%;
+    border: 0;
+    outline: 2;
+    padding: 18px 15px;
+    border-radius: 40px;
+    background-color: #b9efd5;
+    color: black;
+    font-weight: 700;
+    font-family: cursive;
+}
+textarea{
+    width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+textarea::placeholder{
+  color: #000;
+}
+.input i{
+    margin-left: 20px;
+    margin-right: 5px;
+    color: rgb(8 88 66);
+
+}
+
+
+.wrap button:hover{
+    color: rgb(220 247 234);
+}
+form p{
+    color: #8b4d28;
+}
+form p a{
+    color: rgb(122 195 77);
+    font-style: italic;
+    font-family: cursive;
+    font-size: small;
+    font-weight: 900;
+}
+img {
+    max-width: 50%;
+    height: auto;
+  }
+  .container input textarea {
+    width: 20px;
+  }
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 202px;
+    margin-left: auto;
+    margin-right: auto;
+}.wrap button{
+    font-size: 29px;
+    flex-basis: 48%;
+    text-size-adjust: 30;
+    background-color: rgb(8 88 66);
+    color: white;
+    margin: 0px 20px;
+    height: 45px;
+    width: 132px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+
+}
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 202px;
+    margin-left: auto;
+    margin-right: auto;
+}
+label{
+    font-size: large;
+    margin-left: 20px;
+    margin-right: 0px;
+    text-align: left;
+    width: 157px;
+    border-radius: 40px;
+    color: rgb(8 88 66);
+
+}

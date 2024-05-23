@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('signinAdmin/', views.signinAdmin, name='signinAdmin'),
+    # path('test/', views.test, name='home'),
+    path('SigninUser/', views.signinUser, name='SigninUser'),
+    path('SignUpAdmin/', views.signUpAdmin, name='SignUpAdmin'),
+    path('SignUpUser/', views.signUpUser, name='SignUpUser'),
+    # path('test/', views.test, name='test'),
+    path('home/<int:Id>', views.home, name='home'),
+    path('api/categories/', views.category_data, name='category_data'),
+    path('api/books/', views.book_data, name='book_data'),
+    path('Convert/<int:Id>', views.Convert, name='Convert'),
+    path('delete-book/<int:book_id>/', views.delete_book, name='delete_book'),
+    path('getbooks/', views.getbooks, name='getbooks'),
+    path('books/<int:userId>', views.Availableallbooks, name='Availableallbooks'),
+    path('Borrowedbooks/<int:userId>', views.Borrowedbooks, name='Borrowedbooks'),
+    path('selectBook/<int:userId>', views.selectBook, name='selectBook'),
+    # path('Bookdetails/<int:Id>/<int:Id2>', views.Details, name='Bookdetails'),
+    path('addBook/<int:userId>', views.addBook, name='addBook'),
+    path('bookdetails/<int:bookId>/<int:userId>',views.Bookdetails,name='bookdetails'),
+    path('EditBook/<int:Id>', views.EditBook, name='EditBook'),
+    # path('toggleusertype/<int:Id>',views.toggleusertype,name="toggleusertype"),
+    path('saveuser/',views.save_user,name="saveuser"),
+    path('loaduser/',views.get_users_json,name="loaduser"),
+    path('savebook/',views.save_book,name='savebook'),
+    path('modifyBook/',views.modifyBook,name='modifyBook'),
+]
