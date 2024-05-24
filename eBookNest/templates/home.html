@@ -154,7 +154,7 @@
           <div class="availablebooks" id="availablebooks">
             {% for book in books %}
                   {% if book.Available %}
-                      <div class="card" id="book{{ book.id }}">
+                      <div class="card" id="bookU{{ book.id }}">
                           <div class="flip-card">
                               <div class="flip-card-inner">
                                   <div class="flip-card-front">
@@ -194,7 +194,7 @@
             
               {% for book in books %}
                   {% if not book.Available %}
-                      <div class="card" id="book{{ book.id }}">
+                      <div class="card" id="bookU{{ book.id }}">
                           <div class="flip-card">
                               <div class="flip-card-inner">
                                   <div class="flip-card-front">
@@ -352,7 +352,7 @@
                       not_available_div.innerHTML =``;
                       for(var book in response.books){
                         if(response.books[book].Available){
-                          available_div.innerHTML += `<div class="card" id="book${ response.books[book].id }">
+                          available_div.innerHTML += `<div class="card" id="bookU${ response.books[book].id }">
                             <div class="flip-card">
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
@@ -372,7 +372,7 @@
                           </div>`
                         }
                         else{
-                          not_available_div.innerHTML += `<div class="card" id="book${ response.books[book].id }">
+                          not_available_div.innerHTML += `<div class="card" id="bookU${ response.books[book].id }">
                             <div class="flip-card">
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
@@ -558,6 +558,7 @@
           let av = 0, br = 0, i = 0
           for (ktab in books) {
             bookElems = document.getElementById(`bookU${books[ktab].id}`)
+            console.log(`bookU${books[ktab].id}`)
             if (books[ktab].Book_name.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchU.value.toLowerCase())) {
               i++
               bookElems.style.display = `block`
