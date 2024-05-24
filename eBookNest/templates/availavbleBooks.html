@@ -18,7 +18,7 @@
           <a href="../home_page/home.html" class="LogoIcon" onclick="UserHomeuser()">
             <img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
           </a>
-          <a href="../home_page/home.html" class="Logo" onclick="UserHomeuser()">eBookNest</a>
+          <a href="{% url 'home' user.id %}" class="Logo" onclick="AdminHomeuser()">eBookNest</a>
       </div>
       <div class="bottomline">
           <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage"  onclick="UserHomeuser()">Home</a>
@@ -37,7 +37,7 @@
   
           <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
           <label for="Search" class="srch">Search:</label>
-          <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        <input type="text" id="SBarU" name="Search Bar" placeholder="Search for a book...">
       </div>
         {% else %}
         <div class="logoandsearch">
@@ -47,21 +47,14 @@
           <a href="{% url 'home' user.id %}" class="Logo" onclick="AdminHomeuser()">eBookNest</a>
       </div>
       <div class="bottomline">
-        <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage" style="
-          color: #ffffff;
-          text-decoration: underline;
-          font-size: 35px;
-          color: burlywood;
-          padding-bottom: 0px;
-          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-          text-underline-offset: 15.25px;">Home</a>
-          <a href="../Adimn_Home_page/add.html" class="quick" title="add a new book">Add Book</a>
+        <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
+          <a href="{% url 'addBook' user.id %}" class="quick" title="add a new book">Add Book</a>
           <a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
           <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
           
           <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
           <label for="Search" class="srch">Search:</label>
-          <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        <input type="text" id="SBarA" name="Search Bar" placeholder="Search for a book...">
       </div>
         {% endif %}
       </nav>
@@ -87,13 +80,14 @@
           </div>
           <p>{{book.Book_name}}</p>
           <div class="Edit_Delete_buttns">
-            <button class="buttns" onclick = "location.href='{% url 'EditBook' book.id %}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
+            <button class="buttns" onclick="location.href='{% url 'EditBook' user.id book.id %}'"><a
+              style="color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
             <button class="buttns" Category = "{{category}}" onclick="deleteBook({{ book.id }})" id = "Delete_btn"><i class="fa fa-trash-o" style="font-size:25px"></i></button>
           </div>
         </div>
         {% else %}
         {% if book.Available %}
-        <div class="card" id="book{{ book.id }}">
+        <div class="card" id="bookU{{ book.id }}">
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -161,7 +155,68 @@
       </div>
         <br>
     <script>
-     
+      var categories = [], books = [];
+      document.addEventListener("DOMContentLoaded", function () {
+        Promise.all([
+          fetch('/api/books/').then(response => response.json()),
+          fetch('/api/categories/').then(response => response.json())
+        ])
+          .then(([booksData, categoriesData]) => {
+            books = booksData;
+            categories = categoriesData;
+            for (cat in categories) {
+              for (book in books) {
+                if (books[book].Category_id == categories[cat].id) {
+                  books[book].CategoryName = categories[cat].Category_name
+                }
+              }
+            }
+          })
+          .catch(error => console.log('Error fetching data:'));
+      });
+      if("{{user.isUser}}" == "True")
+      {const searchU = document.getElementById(`SBarU`);
+        searchU.addEventListener(`keyup`, (event) => {
+          let bookElems;
+          let i = 0
+          for (ktab in books) {
+
+            if(books[ktab].Available ){
+              console.log(books)
+              console.log(`bookU${books[ktab].id}`)
+              bookElems = document.getElementById(`bookU${books[ktab].id}`)
+              console.log(bookElems)
+              if (books[ktab].Book_name.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchU.value.toLowerCase())) {
+                i++
+                bookElems.style.display = `block`
+                console.log(searchU.value)
+                console.log(i)
+              }
+              else {
+                bookElems.style.display = `none`
+              }
+              console.log(bookElems)}
+          }
+        })
+      }
+      else{const searchA = document.getElementById(`SBarA`);
+      searchA.addEventListener('keyup', (event) => {
+        let bookElems;
+          let i = 0
+          for (ktab in books) {
+
+              
+              bookElems = document.getElementById(`book${books[ktab].id}`)
+              if (books[ktab].Book_name.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchA.value.toLowerCase())) {
+                i++
+                bookElems.style.display = `block`
+              }
+              else {
+                bookElems.style.display = `none`
+              }
+          }
+      })}
+      
       function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

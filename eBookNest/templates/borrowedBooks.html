@@ -35,7 +35,7 @@
 
         <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
         <label for="Search" class="srch">Search:</label>
-        <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        <input type="text" id="SBarU" name="Search Bar" placeholder="Search for a book...">
     </div>
       
     </nav>
@@ -44,7 +44,7 @@
     <div class="availablebooks" id="availablebooks">
       {% for book in books %}
       {% if not book.Available %}
-      <div class="card" id="book{{ book.id }}">
+      <div class="card" id="bookU{{ book.id }}">
           <div class="flip-card">
               <div class="flip-card-inner">
                   <div class="flip-card-front">
@@ -67,7 +67,49 @@
     </div>
       <br>
     <script>
-    
+      var categories = [], books = [];
+      document.addEventListener("DOMContentLoaded", function () {
+        Promise.all([
+          fetch('/api/books/').then(response => response.json()),
+          fetch('/api/categories/').then(response => response.json())
+        ])
+          .then(([booksData, categoriesData]) => {
+            books = booksData;
+            categories = categoriesData;
+            for (cat in categories) {
+              for (book in books) {
+                if (books[book].Category_id == categories[cat].id) {
+                  books[book].CategoryName = categories[cat].Category_name
+                }
+              }
+            }
+          })
+          .catch(error => console.log('Error fetching data:'));
+      });
+      const searchU = document.getElementById(`SBarU`);
+
+      searchU.addEventListener(`keyup`, (event) => {
+        let bookElems;
+        let i = 0
+        for (ktab in books) {
+
+          if(!books[ktab].Available ){
+            {% comment %} console.log(books) {% endcomment %}
+            console.log(`bookU${books[ktab].id}`)
+            bookElems = document.getElementById(`bookU${books[ktab].id}`)
+            {% comment %} console.log(bookElems) {% endcomment %}
+            if (books[ktab].Book_name.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchU.value.toLowerCase())) {
+              i++
+              bookElems.style.display = `block`
+              {% comment %} console.log(searchU.value)
+              console.log(i) {% endcomment %}
+            }
+            else {
+              bookElems.style.display = `none`
+            }
+            console.log(books[ktab])}
+        }
+      })
       function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

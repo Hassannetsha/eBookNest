@@ -50,6 +50,10 @@ def delete_book(request, book_id):
         return JsonResponse({'status': 'Book deleted'})
     return JsonResponse({'status': 'Invalid request'}, status=400)
 
+def deletePage(request,userID):
+    user = get_object_or_404(User,pk=userID)
+    return render(request,'delete.html',{'user':user})
+
 def getbooks(request):
     books = Book.objects.all()
     Categoryies = Categorys.objects.all()
@@ -107,11 +111,11 @@ def get_users_json(request):
     user_json = serializers.serialize('json', user)
     return JsonResponse(user_json, safe=False)
 
-def EditBook(request, Id):
-    book = get_object_or_404(Book, pk=Id)
+def EditBook(request, Id,Id2):
+    book = get_object_or_404(Book, pk=Id2)
     category = get_object_or_404(Categorys, pk=book.Category_id)
-    return render(request, 'Edit.html', {'book': book, 'category': category})
-    # return render(request,'Edit.html',{'book':book,"user":user})
+    user = get_object_or_404(User,pk=Id)
+    return render(request, 'Edit.html', {'book': book, 'category': category, 'user':user})
 
 
 def addBook(request, userId):
@@ -157,23 +161,17 @@ def save_book(request):
 def modifyBook(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.POST['str'])
+            data = json.loads(request.POST['json'])
+            oldCat = Categorys.objects.filter(Category_name=Book.objects.get(pk=data.get('ID')).Category)
             cat = data.get('Category')
             zeftID = 0
             catid = Categorys.objects.filter(Category_name=cat)
-            if not catid.count():
-                q = Categorys.objects.get(
-                    Category_name=Categorys.objects.last())
-                if q is None:
-                    q = 1
-                else:
-                    q = q.id + 1
-
+            if not catid:
                 catid = Categorys.objects.create(
-                    id=q,
                     Category_name=cat
                 )
                 catid.save()
+                zeftID = catid.id
             else:
                 zeftID = catid[0].id
             newBook = Book.objects.get(pk=data.get('ID'))
@@ -184,6 +182,8 @@ def modifyBook(request):
             newBook.Category = Categorys.objects.get(pk=zeftID)
             newBook.description = data.get('Description')
             newBook.save()
+            if not Book.objects.filter(Category=oldCat[0]):
+                Categorys.objects.filter(Category_name=oldCat[0])[0].delete()
             return JsonResponse({'status': 'success', 'message': 'Book edited Successfully'})
         except Exception as e:
             print(e)

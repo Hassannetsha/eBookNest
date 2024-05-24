@@ -79,7 +79,7 @@
     <div class="button" id="button">
       {% if not user.isUser %}
         <button class="b" onclick = "Go_back({{user.id}})">Back</button>
-        <button class="b" onclick = "location.href='{% url 'EditBook' book.id %}'">Edit</button>
+        <button class="b" onclick = "location.href='{% url 'EditBook' user.id book.id %}'">Edit</button>
         <div class="heart" name="x" onclick = "deleteBook({{book.id}},{{user.id}})"><i onclick = "deleteBook({{book.id}},{{user.id}})" class="fa fa-trash-o" name="x" style="font-size:40px; padding-left: 21px;" onclick = "deletebook({{book.id}})"></i></div>
         {% else %}
         {% if book.Available %}

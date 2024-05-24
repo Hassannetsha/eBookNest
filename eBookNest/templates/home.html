@@ -45,11 +45,11 @@
                 text-underline-offset: 15.25px;" onclick="AdminHomeuser()">Home</a>
             <a href="{% url 'addBook' user.id %}" class="quick" title="add a new book">Add Book</a>
             <a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
-            <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+            <a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list">Delete Book</a>
             
             <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
             <label for="Search" class="srch">Search:</label>
-            <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        <input type="text" id="SBarA" name="Search Bar" placeholder="Search for a book...">
           </div>
         </nav>
         <div class="img">
@@ -87,7 +87,8 @@
                     </div>
                     <p>{{book.Book_name}}</p>
                     <div class="Edit_Delete_buttns">
-                      <button class="buttns" onclick = "location.href='{% url 'EditBook' book.id %}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
+                      <button class="buttns" onclick="location.href='{% url 'EditBook' user.id book.id %}'"><a
+                        style="color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
                       <button class="buttns" Category = "{{category}}" onclick="deleteBook({{ book.id }},{{user.id}})" id = "Delete_btn"><i class="fa fa-trash-o" style="font-size:25px"></i></button>
                     </div>
                   </div>
@@ -105,7 +106,7 @@
             </div>
             <br><br>
             <div id = "DELETE" class="DELETE">
-              <a href="../Adimn_Home_page/delete.html" class="Options">Delete Book</a>
+              <a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list">Delete Book</a>
             </div>
           </div>
           <div><br><br><br></div>
@@ -132,7 +133,7 @@
               <a href="{% url 'Borrowedbooks' user.id %}" class="quick" title="Borrow books">Borrow books</a>
               <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
               <label for="Search" class="srch">Search:</label>
-              <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+        <input type="text" id="SBarU" name="Search Bar" placeholder="Search for a book...">
           </div>
         </nav>
           <div class="img" id="img">
@@ -230,6 +231,21 @@
               check();
               checkBorrow();
               checkavailble();
+              for (cat in categories) {
+                for (book in books) {
+                  if (books[book].Category_id == categories[cat].id) {
+                    books[book].CategoryName = categories[cat].Category_name
+                  }
+                }
+              }
+              for (book in books) {
+                if (books[book].Available) {
+                  number_of_avail++;
+                }
+                else {
+                  number_of_borrowed++;
+                }
+              }
           })
           .catch(error => console.log('Error fetching data:'));
         });
@@ -281,7 +297,8 @@
                       ctn++;
                   }
               }
-              var clas = "books" + (index + 1);
+              console.log(categories[index].id)
+              var clas = "books" + (categories[index].id);
               if (ctn==0) {
                   var books1Elements = document.getElementsByClassName(clas);
                   
@@ -469,6 +486,108 @@
             })
           });
         }
+        const searchA = document.getElementById(`SBarA`);
+        const searchU = document.getElementById(`SBarU`);
+        searchA.addEventListener('keyup', (event) => {
+          let categoryElems;
+          let bookElems;
+          let divGhareeba;
+          let divGhareeba2;
+          for (cat in categories) {
+            categoryElems = document.getElementById(categories[cat].Category_name)
+            divGhareeba = document.getElementsByClassName(`Books books${categories[cat].id}`)[0]
+            divGhareeba2 = document.getElementsByClassName(`see books${categories[cat].id}`)[0]
+            let hide = true
+            if (categories[cat].Category_name.toLowerCase().includes(searchA.value.toLowerCase())) {
+              categoryElems.style.display = `flex`
+              divGhareeba.style.display = `flex`
+              divGhareeba2.style.display = `block`
+              for (ktab in books) {
+                bookElems = document.getElementById(`book${books[ktab].id}`)
+                if (books[ktab].CategoryName == categories[cat].Category_name) {
+                  categoryElems = document.getElementById(books[ktab].CategoryName)
+                  divGhareeba = document.getElementsByClassName(`Books books${books[ktab].Category_id}`)[0]
+                  divGhareeba2 = document.getElementsByClassName(`see books${books[ktab].Category_id}`)[0]
+                  bookElems = document.getElementById(`book${books[ktab].id}`)
+                  if (books[ktab].Book_name.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchA.value.toLowerCase())) {
+                    hide = false
+                    categoryElems.style.display = `flex`
+                    bookElems.style.display = `block`
+                    divGhareeba.style.display = `flex`
+                    divGhareeba2.style.display = `block`
+                  }
+                  else {
+                    bookElems.style.display = `none`
+                  }
+                }
+              }
+              hide = false
+            }
+            else {
+              for (ktab in books) {
+                if (books[ktab].CategoryName == categories[cat].Category_name) {
+                  categoryElems = document.getElementById(books[ktab].CategoryName)
+                  divGhareeba = document.getElementsByClassName(`Books books${books[ktab].Category_id}`)[0]
+                  divGhareeba2 = document.getElementsByClassName(`see books${books[ktab].Category_id}`)[0]
+                  bookElems = document.getElementById(`book${books[ktab].id}`)
+                  if (books[ktab].Book_name.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchA.value.toLowerCase())) {
+                    hide = false
+                    categoryElems.style.display = `flex`
+                    bookElems.style.display = `block`
+                    divGhareeba.style.display = `flex`
+                    divGhareeba2.style.display = `block`
+                  }
+                  else {
+                    bookElems.style.display = `none`
+                  }
+                }
+              }
+            }
+            if (hide) {
+              categoryElems = document.getElementById(categories[cat].Category_name)
+              divGhareeba = document.getElementsByClassName(`Books books${categories[cat].id}`)[0]
+              divGhareeba2 = document.getElementsByClassName(`see books${categories[cat].id}`)[0]
+              categoryElems.style.display = `none`
+              divGhareeba.style.display = `none`
+              divGhareeba2.style.display = `none`
+            }
+          }
+        })
+        searchU.addEventListener(`keyup`, (event) => {
+          let bookElems;
+          let av = 0, br = 0, i = 0
+          for (ktab in books) {
+            bookElems = document.getElementById(`bookU${books[ktab].id}`)
+            if (books[ktab].Book_name.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchU.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchU.value.toLowerCase())) {
+              i++
+              bookElems.style.display = `block`
+              console.log(searchU.value)
+              av += (books[ktab].Available) ? 1 : 0;
+              br += (books[ktab].Available) ? 0 : 1;
+              console.log(i)
+            }
+            else {
+              bookElems.style.display = `none`
+            }
+            console.log(bookElems)
+          }
+          if (!av) {
+            document.getElementById(`Available`).style.display = `none`
+            document.getElementById(`hide1`).style.display = `none`
+          }
+          else {
+            document.getElementById(`Available`).style.display = `flex`
+            document.getElementById(`hide1`).style.display = `block`
+          }
+          if (!br) {
+            document.getElementById(`borrowBooks`).style.display = `none`
+            document.getElementById(`hide`).style.display = `none`
+          }
+          else {
+            document.getElementById(`borrowBooks`).style.display = `flex`
+            document.getElementById(`hide`).style.display = `block`
+          }
+        })
       </script>
     </body>
 </html>

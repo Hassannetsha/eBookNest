@@ -34,13 +34,13 @@
     <a href="../home_page/home.html" class="LogoIcon">
 <img src="{%static 'image/logopng-removebg.png'%}" alt="can't display image">
 </a>
-<a href="../home_page/home.html" class="Logo">eBookNest</a>
+<a href="{% url 'home' user.id %}" class="Logo">eBookNest</a>
 
 </div>
 
 <div class="bottomline">
-<a href="../home_page/home.html" class="quick" title="Admin Homepage">Home</a>
-<a href="add.html" class="quick" title="add a new book" style="
+<a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
+<a href="{% url 'addBook' user.id %}" class="quick" title="add a new book" style="
 color: #ffffff;
 text-decoration: underline;
 font-size: 38px;
@@ -49,14 +49,12 @@ padding-bottom: 0px;
 text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 text-underline-offset: 12.5px;">Add Book</a>
 
-<a href="Edit.html" class="quick" title="edit an existing book">Edit Book</a>
+<a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
 
-<a href="delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+<a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
 
+<a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list">Delete Book</a>
 
-<a href="../html/main-sign-page.html" class="quick" title="log out">Sign Out</a>
-<label for="Search" class="srch">Search:</label>
-<input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
 </div>
 `;
         navbar = document.getElementById("form");
@@ -167,6 +165,7 @@ text-underline-offset: 12.5px;">Add Book</a>
                 .then(res => res.json())
                 .then(js => {
                     if (js.status == 'success') {
+                        alert("Book Added")
                         location.href = `http://127.0.0.1:8000//home/${userId}`
                     }
                     else {

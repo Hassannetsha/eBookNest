@@ -1,29 +1,132 @@
 <html>
 
 <head>
+    {% load static %}
     <meta charset="utf-8">
     <title>e BookNest | delete books</title>
-    <link rel="icon" type="image/x-icon" href="../images/logopng-removebg.ico">
-    <link rel="stylesheet" href="../Style/add.css">
-    <link rel="stylesheet" href="../Style/Styles.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'image/logopng-removebg.ico'%}">
+    <link rel="stylesheet" href="{% static 'css/Styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+
 </head>
 
-<body style="background-image: ;">
+<body>
     <div>
         <nav class="navbar" id="navbar">
-            
+
         </nav>
         <hr style="border: 1px solid burlywood;border-radius: 5px;">
     </div>
     <div>
-        <div class="delete">
-            <form action="../home_page/home.html" id="form">
-                
+        <div class="delete" style="background-image: url({% static 'image/delete.png' %});">
+            <form action="{%url 'home' user.id%}" id="form" target = "_blank">
+
             </form>
         </div>
-        
+
     </div>
-    <script src ='../JavaScript/delete.js'></script>
+    <script>
+
+        function getnavbar() {
+            var navbar = document.getElementById("navbar");
+            navbar.innerHTML = `<div class="logoandsearch">
+    <a href="{% url 'home' user.id %}" class="LogoIcon">
+<img src="{% static 'image/logopng-removebg.png' %}" alt="can't display image">
+</a>
+<a href="{% url 'home' user.id %}" class="Logo">eBookNest</a>
+
+</div>
+
+<div class="bottomline">
+   <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
+<a href="{% url 'addBook' user.id %}" class="quick" title="add a new book">Add Book</a>
+
+<a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
+
+<a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list" style="
+color: #ffffff;
+text-decoration: underline;
+font-size: 38px;
+color: burlywood;
+padding-bottom: 0px;
+text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+text-underline-offset: 12.5px;">Delete Book</a>
+
+
+
+
+
+<a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
+
+</div>
+`;
+            navbar = document.getElementById("form");
+            navbar.innerHTML = `<h2>Delete by entering the following: </h2>
+    <br>
+    <br>
+    <div class="input">
+        <label for="BookId">Book ID: </label>
+    <input type="text" id="BookId" name="Bookid" required placeholder="enter book ID">
+    </div>
+
+   <p class="invalidinput"><p>
+   <br><br>
+    <div class="box"> 
+        <div class="wrap">
+    <button id = "deletebtn" type="submit">
+        Submit
+    </button>
+</div>
+<div class="wrap">
+    <button type="submit">
+        Reset
+    </button>
+</div>
+</div>`;
+        }
+        getnavbar();
+
+        var idElem = document.getElementById("BookId")
+        var btn = document.getElementById("deletebtn")
+        var para = document.getElementsByClassName("invalidinput")[0]
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        btn.addEventListener('click', (event) => {
+            const ID = {
+                'id': idElem.value
+            }
+            fetch(`/delete-book/${ID.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+            })
+                .then(res => res.json())
+                .then(JS => {
+                    if (JS.status = `Invalid request`) {
+                        para.innerHTML = `*Book not found`
+                        event.preventDefault();
+                    }
+                    else{
+                        alert("Book deleted")
+                    }
+                })
+                .catch(error=> console.error(error))
+        })
+
+    </script>
 </body>
 
 </html>

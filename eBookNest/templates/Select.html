@@ -38,8 +38,7 @@
                 <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
                 
                 <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
-                <label for="Search" class="srch">Search:</label>
-                <input type="text" id="SBar" name="Search Bar" placeholder="Search for a book title...">
+                <input type="text" id="SBarA" name="Search Bar" placeholder="Search for a book...">
             </div>
         </nav>
         <div class="img" >
@@ -49,14 +48,14 @@
             <div class ="mix">
                 {% for category in categories %}
                     <div class="Books books{{category.id}}" id="Books">
-                    <div class="Rigth"></div>
-                    <a href="">{{category.Category_name}}</a>
-                    <div class="Left"></div>
+                        <div class="Rigth"></div>
+                        <a href="">{{category.Category_name}}</a>
+                        <div class="Left"></div>
                     </div>
                     <div class="see books{{category.id}}" >
-                    <a href="{% url 'Availableallbooks' user.id %}" id = "see">
-                        See All
-                    </a>
+                        <a href="{% url 'Availableallbooks' user.id %}" id = "see">
+                            See All
+                        </a>
                     </div>
                     <div class="Categoreys" id="{{category.Category_name}}">
                     {% for book in books %}
@@ -78,7 +77,8 @@
                             </div>
                             <p>{{book.Book_name}}</p>
                             <div class="Edit_Delete_buttns">
-                                <button class="buttns" onclick = "location.href='{% url 'EditBook' book.id %}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
+                                <button class="buttns" onclick="location.href='{% url 'EditBook' user.id book.id %}'"><a
+                                    style="color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
                             </div>
                         </div>
                         {% endif %}
@@ -95,17 +95,102 @@
             
         </div>
         <script>
-            function details(number){
-                fetch(`/toggleusertype/${number}/`,{
-                    method: "PATCH",
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
-                    },
+            document.addEventListener("DOMContentLoaded", function () {
+                Promise.all([
+                    fetch('/api/books/').then(response => response.json()),
+                    fetch('/api/categories/').then(response => response.json())
+                ])
+                .then(([booksData, categoriesData]) => {
+                    books = booksData;
+                    categories = categoriesData;
+                    check();
+                    for (cat in categories) {
+                        for (book in books) {
+                            if (books[book].Category_id == categories[cat].id) {
+                            books[book].CategoryName = categories[cat].Category_name
+                            }
+                        }
+                    }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    alert("done")
+                .catch(error => console.log('Error fetching data:'));
+            });
+            const searchA = document.getElementById(`SBarA`);
+            searchA.addEventListener('keyup', (event) => {
+                let categoryElems;
+                let bookElems;
+                let divGhareeba;
+                let divGhareeba2;
+                for (cat in categories) {
+                    categoryElems = document.getElementById(categories[cat].Category_name)
+                    divGhareeba = document.getElementsByClassName(`Books books${categories[cat].id}`)[0]
+                    divGhareeba2 = document.getElementsByClassName(`see books${categories[cat].id}`)[0]
+                    let hide = true
+                    if (categories[cat].Category_name.toLowerCase().includes(searchA.value.toLowerCase())) {
+                        categoryElems.style.display = `flex`
+                        divGhareeba.style.display = `flex`
+                        divGhareeba2.style.display = `block`
+                        for (ktab in books) {
+                        bookElems = document.getElementById(`book${books[ktab].id}`)
+                        if (books[ktab].CategoryName == categories[cat].Category_name) {
+                            categoryElems = document.getElementById(books[ktab].CategoryName)
+                            divGhareeba = document.getElementsByClassName(`Books books${books[ktab].Category_id}`)[0]
+                            divGhareeba2 = document.getElementsByClassName(`see books${books[ktab].Category_id}`)[0]
+                            bookElems = document.getElementById(`book${books[ktab].id}`)
+                            if (books[ktab].Book_name.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchA.value.toLowerCase())) {
+                            hide = false
+                            categoryElems.style.display = `flex`
+                            bookElems.style.display = `block`
+                            divGhareeba.style.display = `flex`
+                            divGhareeba2.style.display = `block`
+                            }
+                            else {
+                            bookElems.style.display = `none`
+                            }
+                        }
+                        }
+                        hide = false
+                    }
+                    else {
+                        for (ktab in books) {
+                        if (books[ktab].CategoryName == categories[cat].Category_name) {
+                            categoryElems = document.getElementById(books[ktab].CategoryName)
+                            divGhareeba = document.getElementsByClassName(`Books books${books[ktab].Category_id}`)[0]
+                            divGhareeba2 = document.getElementsByClassName(`see books${books[ktab].Category_id}`)[0]
+                            bookElems = document.getElementById(`book${books[ktab].id}`)
+                            if (books[ktab].Book_name.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].CategoryName.toLowerCase().includes(searchA.value.toLowerCase()) || books[ktab].Book_author.toLowerCase().includes(searchA.value.toLowerCase())) {
+                            hide = false
+                            categoryElems.style.display = `flex`
+                            bookElems.style.display = `block`
+                            divGhareeba.style.display = `flex`
+                            divGhareeba2.style.display = `block`
+                            }
+                            else {
+                            bookElems.style.display = `none`
+                            }
+                        }
+                        }
+                    }
+                    if (hide) {
+                        categoryElems = document.getElementById(categories[cat].Category_name)
+                        divGhareeba = document.getElementsByClassName(`Books books${categories[cat].id}`)[0]
+                        divGhareeba2 = document.getElementsByClassName(`see books${categories[cat].id}`)[0]
+                        categoryElems.style.display = `none`
+                        divGhareeba.style.display = `none`
+                        divGhareeba2.style.display = `none`
+                    }
+                    }
                 })
+                function details(number){
+                    fetch(`/toggleusertype/${number}/`,{
+                        method: "PATCH",
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("done")
+                    })
             }
             function getCookie(name) {
                 let cookieValue = null;
@@ -121,6 +206,28 @@
                 }
                 return cookieValue;
             }
+            function check() {
+                for (let index = 0; index < categories.length; index++) {
+                  var ctn = 0;
+                  for (let i = 0; i < books.length; i++) {
+                    if (categories[index].id == books[i].Category_id) {
+                      ctn++;
+                    }
+                  }
+                  var clas = "books" + (index + 1);
+                  if (ctn == 0) {
+                    var books1Elements = document.getElementsByClassName(clas);
+          
+                    for (var i = 0; i < books1Elements.length; i++) {
+                      books1Elements[i].style.transition = 'opacity 0.5s, height 0.5s';
+                      books1Elements[i].style.opacity = '0';
+                      books1Elements[i].style.height = '0';
+                    }
+                    document.getElementById(categories[index].Category_name).style.display = "none";
+                  }
+                }
+          
+              }
         </script>
     </body>
 </html
