@@ -450,7 +450,7 @@
                                   <div class="flip-card-back">
                                     <h1>${response.books[book].Book_name}</h1>
                                     <p>${response.books[book].description}$</p>
-                                    <a href="http://127.0.0.1:8000/bookdetails/${response.books[book].id}/${userId}" class="see">
+                                    <a href="/bookdetails/${response.books[book].id}/${userId}" class="see">
                                       See More..
                                     </a>
                                   </div>
@@ -458,7 +458,7 @@
                               </div>
                               <p>${response.books[book].Book_name}</p>
                               <div class="Edit_Delete_buttns">
-                                <button class="buttns" onclick = "location.href='http://127.0.0.1:8000/EditBook/${response.books[book].id}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
+                                <button class="buttns" onclick = "location.href='/EditBook/${userId}/${response.books[book].id}'"><a style = "color : white; font-family: sans-serif;font-style: normal;">Edit</a></button>
                                 <button class="buttns" Category = "${response.categories[category].Category_name}" onclick="deleteBook(${ response.books[book].id })" id = "Delete_btn"><i class="fa fa-trash-o" style="font-size:25px"></i></button>
                               </div>
                             </div>`;
