@@ -116,7 +116,7 @@
           method: 'PATCH',
           headers: {
               'X-CSRFToken': getCookie('csrftoken'),
-              'Content-Type': 'application/json' // Ensure the content type is set if sending JSON data
+              'Content-Type': 'application/json'
           },
         })
         .then(response => {
@@ -145,6 +145,16 @@
         .then(data => {
           location.href = `http://127.0.0.1:8000/home/${userID}`
         });
+      }
+      function changeColor() {
+        var fa = document.getElementById("fa");
+        if(fa.style.color === "red"){
+            fa.style.color = "rgb(8 88 66)";
+            
+        }
+        else{
+            fa.style.color = "red";
+        }
       }
     </script>
 </body>
