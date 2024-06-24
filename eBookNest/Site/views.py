@@ -45,9 +45,11 @@ def Convert(request, Id):
 
 def delete_book(request, book_id):
     if request.method == "DELETE":
+        if Book.objects.filter(pk=book_id).count() == 0:
+            return JsonResponse({'status': 'Invalid request'}, status=400)
         book = get_object_or_404(Book, id=book_id)
         book.delete()
-        return JsonResponse({'status': 'Book deleted'})
+        return JsonResponse({'status': 'Book deleted'},status = 200)
     return JsonResponse({'status': 'Invalid request'}, status=400)
 
 def deletePage(request,userID):

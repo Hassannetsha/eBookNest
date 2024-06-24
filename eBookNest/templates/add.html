@@ -21,10 +21,74 @@
 
     <div class="add">
         <form action = "{% url 'home' user.id %}" id="form" target = "_blank">
-
-
-
-
+            <div class="input">
+                <label for="BookId"> Book Id:</label>
+                    <input type="text" required name="BookId" placeholder="Enter book id" id="BookIdinp" name="bookid" autofocus>
+                </div>
+                    
+                    <br>
+                    <br>
+                    
+                <div class="input"> 
+                <label for="BookName"> Book Title:</label>
+                    <input type="text" required name="BookName" placeholder="Enter book's title" id="BookName">
+                </div>
+                    
+                    <br>
+                    <br>
+                    
+                <div class="input">
+                <label for="author"> Book's author:</label>
+                    <input type="text" required name="author" placeholder="Enter book's author" id="author">
+                </div>
+                    
+                    <br>
+                    <br>
+                    
+                <div class="input">
+                <label for="BookCategory"> Book Category:</label>
+                    <input type="text" required name="BookCategory" placeholder="Enter book's category" id="BookCategory">
+                </div>
+                    
+                    <br>
+                    <br>
+            
+                    <div class="input">
+                <label for="BookPages"> Book Pages:</label>
+                    <input type="number" required name="numberOfPages" placeholder="Enter book's number of pages" id="BookPages">
+                </div>
+                    
+                    <br>
+                    <br>
+                    
+                <div class="input">
+                <label for="BookDescription"> Book Description:</label>
+                    <textarea name="comment--" id="BookDescription" cols="30" rows="10"
+                        placeholder="write book description"></textarea>
+                    </div>
+                    
+                    <br>
+                    <br>
+                    
+                <div class="input"> 
+                <label for="BookCover">Put book's cover image: </label>
+                    <input type="file" id="BookCover"  accept="image/jpg, image/png, image/jpeg, image/webp">
+                </div>
+                    
+                    <br>
+                    <br>
+                    <p class="invalidinput"></p>
+                    <div class="box"> <div class="wrap">
+                        <button type="submit" id = "addbtn" onclick = "add({{user.id}})">
+                            Submit
+                        </button>
+                    </div>
+                    <div class="wrap">
+                        <button type="submit">
+                            Reset
+                        </button>
+                    </div>
+            </div>
         </form>
     </div>
     <script>
@@ -59,74 +123,7 @@ text-underline-offset: 12.5px;">Add Book</a>
 `;
         navbar = document.getElementById("form");
         navbar.style.top = "49%"
-        navbar.innerHTML = `<div class="input">
-    <label for="BookId"> Book Id:</label>
-        <input type="text" required name="BookId" placeholder="Enter book id" id="BookIdinp" name="bookid" autofocus>
-    </div>
-        
-        <br>
-        <br>
-        
-    <div class="input"> 
-    <label for="BookName"> Book Title:</label>
-        <input type="text" required name="BookName" placeholder="Enter book's title" id="BookName">
-    </div>
-        
-        <br>
-        <br>
-        
-    <div class="input">
-    <label for="author"> Book's author:</label>
-        <input type="text" required name="author" placeholder="Enter book's author" id="author">
-    </div>
-        
-        <br>
-        <br>
-        
-    <div class="input">
-    <label for="BookCategory"> Book Category:</label>
-        <input type="text" required name="BookCategory" placeholder="Enter book's category" id="BookCategory">
-    </div>
-        
-        <br>
-        <br>
-
-        <div class="input">
-    <label for="BookPages"> Book Pages:</label>
-        <input type="number" required name="numberOfPages" placeholder="Enter book's number of pages" id="BookPages">
-    </div>
-        
-        <br>
-        <br>
-        
-    <div class="input">
-    <label for="BookDescription"> Book Description:</label>
-        <textarea name="comment--" id="BookDescription" cols="30" rows="10"
-            placeholder="write book description"></textarea>
-        </div>
-        
-        <br>
-        <br>
-        
-    <div class="input"> 
-    <label for="BookCover">Put book's cover image: </label>
-        <input type="file" id="BookCover"  accept="image/jpg, image/png, image/jpeg, image/webp">
-    </div>
-        
-        <br>
-        <br>
-        <p class="invalidinput"></p>
-        <div class="box"> <div class="wrap">
-            <button type="submit" id = "addbtn" onclick = "add({{user.id}})">
-                Submit
-            </button>
-        </div>
-        <div class="wrap">
-            <button type="submit">
-                Reset
-            </button>
-        </div>
-    </div>`;
+        {% comment %} navbar.innerHTML = ``; {% endcomment %}
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -141,7 +138,9 @@ text-underline-offset: 12.5px;">Add Book</a>
             }
             return cookieValue;
         }
-        function add(userId){
+        let addbtn = document.getElementById("addbtn")
+        addbtn.addEventListener('click',(event)=>{
+            event.preventDefault()
             const BOOK = {
                 'ID': document.getElementById(`BookIdinp`).value,
                 'Title': document.getElementById(`BookName`).value,
@@ -166,15 +165,15 @@ text-underline-offset: 12.5px;">Add Book</a>
                 .then(js => {
                     if (js.status == 'success') {
                         alert("Book Added")
-                        location.href = `http://127.0.0.1:8000//home/${userId}`
+                        location.href = `http://127.0.0.1:8000//home/{{user.id}}`
                     }
                     else {
                         event.preventDefault()
                         document.getElementsByClassName('invalidinput')[0].innerText = js.message
                     }
                 })
-                .catch(error => console.log(error))
-        }
+                {% comment %} .catch(error => console.log(error)) {% endcomment %}
+        })
     </script>
 </body>
 

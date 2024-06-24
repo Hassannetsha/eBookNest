@@ -47,7 +47,7 @@ text-underline-offset: 12.5px;">Edit Book</a>
     </div>
 
     <div class="edit">
-        <form action = "{% url 'home' user.id %}" id="formedit" target="_blank">
+        <form action = "{% url 'home' user.id %}" id="formedit">
             <div class="input">
                 <label for="BookName"> Edit book name:</label>
                 <input type="text" id="BookName" placeholder="Book's Name">
@@ -120,7 +120,7 @@ text-underline-offset: 12.5px;">Edit Book</a>
         document.getElementById(`author`).value = "{{book.Book_author}}"
         document.getElementById(`BookCategory`).value = "{{category.Category_name}}"
         document.getElementById(`BookPages`).value = "{{book.no_page}}"
-        document.getElementById(`BookDescription`).value = "{{book.Book_description}}"
+        document.getElementById(`BookDescription`).value = `{{book.description}}`
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -136,6 +136,7 @@ text-underline-offset: 12.5px;">Edit Book</a>
             return cookieValue;
         }
         editbtn.addEventListener('click', (event) => {
+            event.preventDefault()
             const BOOK = {
                 'ID': "{{book.id}}",
                 'Title': document.getElementById(`BookName`).value,
@@ -163,7 +164,7 @@ text-underline-offset: 12.5px;">Edit Book</a>
                         }
                         else {
                             alert("Book Edited")
-                            location.href = `http://127.0.0.1:8000//home/${userId}`
+                            location.href = `http://127.0.0.1:8000//home/{{user.id}}`
                             para.innerText = ''
                         }
                     })
@@ -175,7 +176,6 @@ text-underline-offset: 12.5px;">Edit Book</a>
                 document.getElementsByClassName('invalidinput')[0].innerText = `*Not Enough Data`
             }
         })
-        // localStorage.clear();
     </script>
 </body>
 

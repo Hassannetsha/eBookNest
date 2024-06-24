@@ -50,7 +50,7 @@
         <a href="{% url 'home' user.id %}" class="quick" title="Admin Homepage">Home</a>
           <a href="{% url 'addBook' user.id %}" class="quick" title="add a new book">Add Book</a>
           <a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
-          <a href="../Adimn_Home_page/delete.html" class="quick" title="remove a book from the list">Delete Book</a>
+          <a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list">Delete Book</a>
           
           <a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
           <label for="Search" class="srch">Search:</label>
