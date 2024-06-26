@@ -85,11 +85,11 @@
         {% if book.Available %}
           <button class="b" onclick = "Go_back({{user.id}})">Back</button>
           <button class="b" onclick = "toggleAvailability({{book.id}},{{user.id}})">Borrow</button>
-          <div class="heart" name="x"><i class="fa fa-heart" name="x"id = "fa"  onclick = "changeColor()"></i></div>
+          
           {% else %}
             <button class="b" onclick = "Go_back({{user.id}})">Back</button>
             <button class="b" onclick = "toggleAvailability({{book.id}},{{user.id}})">Return</button>
-            <div class="heart" name="x"><i class="fa fa-heart" name="x"id = "fa"  onclick = "changeColor()"></i></div>
+            
         {% endif %}
       {% endif %}
     </div>
@@ -146,16 +146,7 @@
           location.href = `http://127.0.0.1:8000/home/${userID}`
         });
       }
-      function changeColor() {
-        var fa = document.getElementById("fa");
-        if(fa.style.color === "red"){
-            fa.style.color = "rgb(8 88 66)";
-            
-        }
-        else{
-            fa.style.color = "red";
-        }
-      }
+      
     </script>
 </body>
 </html>

@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="{% static 'css/Styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .ADD:hover, .SELECT:hover, .DELETE:hover {
+            background-color: white;
+        }
+        .ADD, .SELECT, .DELETE {
+            transition: background-color 0.3s;
+            border: 0;
+            border-radius: 15px;
+            background-color: white;
+            padding: 11px;
+            cursor: pointer;
+            margin: 0px 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -115,9 +129,9 @@ text-underline-offset: 12.5px;">Add Book</a>
 
 <a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
 
-<a href="{% url 'selectBook' user.id %}" class="quick" title="edit an existing book">Edit Book</a>
-
 <a href="{% url 'deletePage' user.id %}" class="quick" title="remove a book from the list">Delete Book</a>
+
+<a href="{% url 'index' %}" class="quick" title="log out">Sign Out</a>
 
 </div>
 `;
